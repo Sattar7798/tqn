@@ -1,0 +1,46 @@
+seed: 42
+output_dir: "results/minimal_run"
+
+env:
+  id: "RCMultiZone-v0"
+  n_zones: 5
+  timestep_min: 5
+  episode_len_steps: 288
+  comfort_band: [21.0, 25.0]
+  t_set_occupied: 23.0
+  t_set_unoccupied: 26.0
+  occupancy_schedule: "office_8_18"
+  weather_file: null
+
+training:
+  n_episodes: 50
+  max_steps_per_episode: 288
+  warmup_steps: 1000
+  gamma: 0.99
+  tau: 0.005
+  actor_lr: 3.0e-4
+  critic_lr: 3.0e-4
+  batch_size: 128
+  replay_size: 50000
+  update_after: 1000
+  update_every: 50
+  eval_interval_episodes: 10
+
+tcddpg:
+  use_thermo_projection: true
+  actor_hidden_sizes: [256, 256]
+  critic_hidden_sizes: [256, 256]
+  noise_sigma: 0.2
+  noise_clip: 0.5
+
+physics:
+  lambda_energy: 0.3
+  lambda_comfort: 0.6
+  lambda_violations: 0.4
+  lambda_energy_balance: 0.3
+  lambda_psychrometric: 0.2
+
+scaler:
+  path: "data/scaler_minimal.pkl"
+  type: "standard"
+  eps: 1.0e-6
